@@ -15,15 +15,16 @@ return new class extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone');
             $table->string('email');
             $table->string('address');
             $table->unsignedBigInteger('company_id');
-            
             $table->timestamps();
-            $table->foreign('company_id')->references('id')->on('companies')->onUpdate('CASCADE')->onDelete('RESTRICT');
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
