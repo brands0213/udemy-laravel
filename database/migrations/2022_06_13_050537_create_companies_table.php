@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('companies', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id'); 
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('address')->nullable();
             $table->string('website')->nullable();
             $table->string('email');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -34,4 +35,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('companies');
     }
-};
+}
